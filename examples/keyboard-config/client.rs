@@ -66,32 +66,32 @@ fn setup(
 ) {
     // Camera
     commands.spawn((
-        Camera3dBundle {
-            transform: Transform::from_xyz(5.0, 5.0, 5.0).looking_at(Vec3::ZERO, Vec3::Y),
-            ..default()
-        },
+        Camera3d { ..default() },
+        Transform::from_xyz(5.0, 5.0, 5.0).looking_at(Vec3::ZERO, Vec3::Y),
         RotationState::None,
     ));
 
     // Light
-    commands.spawn(PointLightBundle {
-        point_light: PointLight {
+    commands.spawn(PointLight {
+        intensity: 1500.0,
+        shadows_enabled: true,
+        ..default()
+    });
+    commands.spawn((
+        PointLight {
             intensity: 1500.0,
             shadows_enabled: true,
             ..default()
         },
-        transform: Transform::from_xyz(4.0, 8.0, 4.0),
-        ..default()
-    });
+        Transform::from_xyz(4.0, 8.0, 4.0),
+    ));
 
     // Cube
-    let cube = Cuboid::new(1.0, 1.0, 1.0);
-    commands.spawn(PbrBundle {
-        mesh: meshes.add(cube),
-        material: materials.add(Color::srgb(0.8, 0.7, 0.6)),
-        transform: Transform::from_xyz(0.0, 0.0, 0.0),
-        ..default()
-    });
+    commands.spawn((
+        Mesh3d(meshes.add(Cuboid::new(1.0, 1.0, 1.0))),
+        MeshMaterial3d(materials.add(Color::srgb(0.8, 0.7, 0.6))),
+        Transform::from_xyz(0.0, 0.0, 0.0),
+    ));
 }
 
 fn set_rotation_state(
@@ -122,10 +122,10 @@ fn rotate_camera(
 
     let rotation = match rotation_state {
         RotationState::None => Quat::IDENTITY,
-        RotationState::Left => Quat::from_rotation_y(-rotation_speed * time.delta_seconds()),
-        RotationState::Right => Quat::from_rotation_y(rotation_speed * time.delta_seconds()),
-        RotationState::Up => Quat::from_rotation_x(rotation_speed * time.delta_seconds()),
-        RotationState::Down => Quat::from_rotation_x(-rotation_speed * time.delta_seconds()),
+        RotationState::Left => Quat::from_rotation_y(-rotation_speed * time.delta_secs()),
+        RotationState::Right => Quat::from_rotation_y(rotation_speed * time.delta_secs()),
+        RotationState::Up => Quat::from_rotation_x(rotation_speed * time.delta_secs()),
+        RotationState::Down => Quat::from_rotation_x(-rotation_speed * time.delta_secs()),
     };
 
     transform.rotate_around(Vec3::ZERO, rotation);

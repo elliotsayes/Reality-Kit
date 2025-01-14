@@ -11,6 +11,13 @@ reality_player_interface = { path = "crates/reality_player_interface" }
 serde.workspace = true
 serde_json.workspace = true
 
+[features]
+client = [
+    "bevy/bevy_render",
+    "bevy/bevy_window",
+    "bevy/bevy_winit",
+]
+
 [workspace]
 resolver = "2"
 
@@ -22,8 +29,45 @@ members = [
 [[example]]
 name = "keyboard-config"
 path = "examples/keyboard-config/client.rs"
+required-features = ["client"]
 
 [workspace.dependencies]
-bevy = { version = "0.14.0" }
+bevy = { version = "0.15.0", default-features = false, features = [
+  # "android-game-activity",
+  # "android_shared_stdcxx",
+  "animation",
+  "bevy_asset",
+  # "bevy_audio",
+  "bevy_color",
+  "bevy_core_pipeline",
+  "bevy_gilrs",
+  "bevy_gizmos",
+  "bevy_gltf",
+  "bevy_mesh_picking_backend",
+  "bevy_pbr",
+  "bevy_picking",
+  # "bevy_render",
+  "bevy_scene",
+  "bevy_sprite",
+  "bevy_sprite_picking_backend",
+  "bevy_state",
+  "bevy_text",
+  "bevy_ui",
+  "bevy_ui_picking_backend",
+  # "bevy_window",
+  # "bevy_winit",
+  # "custom_cursor",
+  "default_font",
+  # "hdr",
+  # "multi_threaded",
+  "png",
+  "smaa_luts",
+  "sysinfo_plugin",
+  "tonemapping_luts",
+  # "vorbis",
+  # "webgl2",
+  "webgpu",
+  # "x11",
+]}
 serde = "1.0.217"
 serde_json = "1.0.135"
