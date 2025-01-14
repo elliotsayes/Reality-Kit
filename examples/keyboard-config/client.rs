@@ -1,30 +1,24 @@
-use std::collections::HashMap;
 use std::ops::Deref;
 
 use reality_kit::bevy::prelude::*;
-use reality_player_interface::{GameActionEvent, Key, KeyboardConfig};
-use reality_player_interface::bevy_keycode_to_action;
+use reality_player_interface::{GameActionEvent, KeyboardConfig, RealityInputPlugin};
 
 fn main() {
-    let keyboard_config: KeyboardConfig = KeyboardConfig::new(
-        HashMap::from([
-            (Key::KeyW, vec![String::from("MoveUp")]),
-            (Key::KeyS, vec![String::from("MoveDown")]),
-            (Key::KeyA, vec![String::from("MoveLeft")]),
-            (Key::KeyD, vec![String::from("MoveRight")]),
-        ])
-    );
+    let keyboard_config: KeyboardConfig = serde_json::from_value(serde_json::json!({
+        "bindings": {
+            "KeyW": ["MoveUp"],
+            "KeyS": ["MoveDown"],
+            "KeyA": ["MoveLeft"],
+            "KeyD": ["MoveRight"],
+        }
+    }))
+    .unwrap();
 
     App::new()
         .add_plugins(DefaultPlugins)
-        .insert_resource(keyboard_config)
-        .add_event::<GameActionEvent>()
+        .add_plugins(RealityInputPlugin { keyboard_config })
         .add_systems(Startup, setup)
-        .add_systems(Update, (
-            bevy_keycode_to_action,
-            set_rotation_state,
-            rotate_camera,
-        ))
+        .add_systems(Update, (set_rotation_state, rotate_camera))
         .run();
 }
 
@@ -112,7 +106,7 @@ fn rotate_camera(
             transform.rotate_around(Vec3::ZERO, rotation);
         }
     }
-    
+
     // Keep the camera looking at the cube
     transform.look_at(Vec3::ZERO, Vec3::Y);
 }

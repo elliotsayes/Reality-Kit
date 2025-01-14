@@ -3051,6 +3051,8 @@ dependencies = [
  "bevy",
  "reality_core",
  "reality_player_interface",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]
