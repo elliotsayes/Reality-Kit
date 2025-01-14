@@ -3,8 +3,8 @@ use bevy::prelude::Event;
 use serde::{Deserialize, Serialize};
 
 /// Trait for GameAction
-pub trait GameActions: Sync + Send + 'static + Clone + Debug {}
-impl<T> GameActions for T where T: Clone + Debug + 'static + Sync + Send + Serialize + for<'de> Deserialize<'de> {}
+pub trait GameActions: Clone + Debug + Sync + Send + 'static {}
+impl<T> GameActions for T where T: Clone + Debug + Sync + Send + 'static {}
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum ActionType {
