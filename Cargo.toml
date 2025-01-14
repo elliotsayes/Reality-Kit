@@ -1,6 +1,23 @@
+[package]
+name = "reality_kit"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+reality_core = { path = "crates/reality_core" }
+
 [workspace]
 resolver = "2"
 
 members = [
     "crates/*",
+    # "examples/*"
 ]
+
+[[example]]
+name = "tic-tac-toe"
+path = "examples/tic-tac-toe/client.rs"
+
+[workspace.dependencies]
+bevy = { version = "0.14.0" }
