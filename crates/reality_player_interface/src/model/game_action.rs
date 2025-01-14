@@ -2,9 +2,9 @@ use std::fmt::Debug;
 use bevy::prelude::Event;
 use serde::{Deserialize, Serialize};
 
-/// Trait for game actions
-/// must be serializable to string representation
+/// Trait for GameAction
 pub trait GameActions: Sync + Send + 'static + Clone + Debug {}
+impl<T> GameActions for T where T: Clone + Debug + 'static + Sync + Send + Serialize + for<'de> Deserialize<'de> {}
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum ActionType {

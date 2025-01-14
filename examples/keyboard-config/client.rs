@@ -1,6 +1,6 @@
 use reality_kit::bevy::prelude::*;
 use reality_player_interface::{
-    ActionType, GameActions, GameActionEvent, KeyboardConfig, RealityInputPlugin,
+    ActionType, GameActionEvent, KeyboardConfig, PlayerInterfaceManifest, RealityInputPlugin,
 };
 use serde::{Deserialize, Serialize};
 
@@ -12,11 +12,24 @@ enum MyGameActions {
     MoveRight,
 }
 
-impl GameActions for MyGameActions {}
+const ALL_ACTIONS: [MyGameActions; 4] = [
+    MyGameActions::MoveUp,
+    MyGameActions::MoveDown,
+    MyGameActions::MoveLeft,
+    MyGameActions::MoveRight,
+];
 
 fn main() {
-    let keyboard_config = serde_json::from_value::<KeyboardConfig<MyGameActions>>(
-        serde_json::json!({
+    let manifest = PlayerInterfaceManifest::<MyGameActions> {
+        name: "Test".to_string(),
+        version: 1,
+        tick_rate: 60,
+        actions_global: ALL_ACTIONS.to_vec(),
+        actions_current: None,
+    };
+
+    let keyboard_config =
+        serde_json::from_value::<KeyboardConfig<MyGameActions>>(serde_json::json!({
             "bindings": {
                 "KeyW": ["MoveUp"],
                 "KeyS": ["MoveDown"],
@@ -25,6 +38,9 @@ fn main() {
             }
         }))
         .unwrap();
+
+    println!("Manifest: {manifest:#?}");
+    println!("Keyboard config: {keyboard_config:#?}");
 
     App::new()
         .add_plugins(DefaultPlugins)
