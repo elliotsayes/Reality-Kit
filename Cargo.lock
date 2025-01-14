@@ -3048,7 +3048,18 @@ dependencies = [
 name = "reality_kit"
 version = "0.1.0"
 dependencies = [
+ "bevy",
  "reality_core",
+ "reality_player_interface",
+]
+
+[[package]]
+name = "reality_player_interface"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]

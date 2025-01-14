@@ -5,7 +5,9 @@ edition = "2021"
 publish = false
 
 [dependencies]
+bevy = { workspace = true }
 reality_core = { path = "crates/reality_core" }
+reality_player_interface = { path = "crates/reality_player_interface" }
 
 [workspace]
 resolver = "2"
@@ -16,8 +18,10 @@ members = [
 ]
 
 [[example]]
-name = "tic-tac-toe"
-path = "examples/tic-tac-toe/client.rs"
+name = "keyboard-config"
+path = "examples/keyboard-config/client.rs"
 
 [workspace.dependencies]
 bevy = { version = "0.14.0" }
+serde = "1.0.217"
+serde_json = "1.0.135"
