@@ -1,9 +1,10 @@
+use std::fmt::Debug;
 use bevy::prelude::Event;
 use serde::{Deserialize, Serialize};
 
 /// Trait for game actions
 /// must be serializable to string representation
-pub type GameAction = String;
+pub trait GameActions: Sync + Send + 'static + Clone + Debug {}
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum ActionType {
@@ -12,25 +13,25 @@ pub enum ActionType {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, Event)]
-pub struct GameActionEvent {
-    pub action: GameAction,
+pub struct GameActionEvent<GA> where GA: GameActions {   
+    pub action: GA,
     pub event: ActionType,
 }
 
-impl GameActionEvent {
-    pub fn new(action: GameAction, event: ActionType) -> Self {
+impl<GA> GameActionEvent<GA> where GA: GameActions {
+    pub fn new(action: GA, event: ActionType) -> Self {
         GameActionEvent { action, event }
     }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct GameActionEventTimed {
+pub struct GameActionEventTimed<GA> where GA: GameActions {
     tick_delta: u64,
-    game_action_event: GameActionEvent,
+    game_action_event: GameActionEvent<GA>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct GameActionTimeline {
+pub struct GameActionTimeline<GA> where GA: GameActions {
     tick_initial: u64,
-    events: Vec<GameActionEventTimed>,
+    events: Vec<GameActionEventTimed<GA>>,
 }

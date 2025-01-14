@@ -5,12 +5,13 @@ use bevy::input::ButtonState;
 use bevy::prelude::*;
 use crate::model::keyboard::{Key, KeyboardConfig};
 use crate::model::game_action::{ActionType, GameActionEvent};
+use crate::GameActions;
 
-pub fn bevy_keycode_to_action(
+pub fn bevy_keycode_to_action<GA>(
     mut evr_kbd: EventReader<KeyboardInput>,
-    mut game_action_events: EventWriter<GameActionEvent>,
-    config: Res<KeyboardConfig>,
-) {
+    mut game_action_events: EventWriter<GameActionEvent<GA>>,
+    config: Res<KeyboardConfig<GA>>,
+) where GA: GameActions {
     for ev in evr_kbd.read() {
         let Some(key) = bevy_keycode_to_keyboard_config_key(ev.key_code) else {
             continue;

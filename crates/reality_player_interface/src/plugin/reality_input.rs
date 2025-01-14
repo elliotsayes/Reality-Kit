@@ -3,17 +3,17 @@
 
 use bevy::prelude::*;
 
-use crate::{system::bevy_keycode_to_action::bevy_keycode_to_action, GameActionEvent, KeyboardConfig};
+use crate::{system::bevy_keycode_to_action::bevy_keycode_to_action, GameActions, GameActionEvent, KeyboardConfig};
 
-pub struct RealityInputPlugin {
-    pub keyboard_config: KeyboardConfig
+pub struct RealityInputPlugin<GA> where GA: GameActions {
+    pub keyboard_config: KeyboardConfig<GA>
 }
 
-impl Plugin for RealityInputPlugin {
+impl<GA> Plugin for RealityInputPlugin<GA> where GA: GameActions {
     fn build(&self, app: &mut App) {
         app
             .insert_resource(self.keyboard_config.clone())
-            .add_event::<GameActionEvent>()
-            .add_systems(PreUpdate, bevy_keycode_to_action);
+            .add_event::<GameActionEvent<GA>>()
+            .add_systems(PreUpdate, bevy_keycode_to_action::<GA>);
     }
 }

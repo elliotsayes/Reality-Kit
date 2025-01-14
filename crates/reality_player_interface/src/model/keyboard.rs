@@ -1,7 +1,7 @@
 use bevy::prelude::Resource;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use crate::model::game_action::GameAction;
+use crate::model::game_action::GameActions;
 
 // Based on https://w3c.github.io/uievents-code/#code-value-tables
 // These come from winit
@@ -184,16 +184,16 @@ pub enum Key {
 // GameAction is defined by the library user
 // It MUST be serializable to string
 #[derive(Debug, Clone, Serialize, Deserialize, Resource)]
-pub struct KeyboardConfig {
-    bindings: HashMap<Key, Vec<GameAction>>,
+pub struct KeyboardConfig<GA> where GA: GameActions {
+    bindings: HashMap<Key, Vec<GA>>,
 }
 
-impl KeyboardConfig {
-    pub fn new(bindings: HashMap<Key, Vec<GameAction>>) -> KeyboardConfig {
+impl<GA> KeyboardConfig<GA> where GA: GameActions {
+    pub fn new(bindings: HashMap<Key, Vec<GA>>) -> KeyboardConfig<GA> {
         KeyboardConfig { bindings }
     }
 
-    pub fn get_actions(&self, key: &Key) -> Option<&Vec<GameAction>> {
+    pub fn get_actions(&self, key: &Key) -> Option<&Vec<GA>> {
         self.bindings.get(key)
     }
 }

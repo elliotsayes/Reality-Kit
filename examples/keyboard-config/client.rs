@@ -1,16 +1,30 @@
 use reality_kit::bevy::prelude::*;
-use reality_player_interface::{ActionType, GameActionEvent, RealityInputPlugin};
+use reality_player_interface::{
+    ActionType, GameActions, GameActionEvent, KeyboardConfig, RealityInputPlugin,
+};
+use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+enum MyGameActions {
+    MoveUp,
+    MoveDown,
+    MoveLeft,
+    MoveRight,
+}
+
+impl GameActions for MyGameActions {}
 
 fn main() {
-    let keyboard_config = serde_json::from_value(serde_json::json!({
-        "bindings": {
-            "KeyW": ["MoveUp"],
-            "KeyS": ["MoveDown"],
-            "KeyA": ["MoveLeft"],
-            "KeyD": ["MoveRight"],
-        }
-    }))
-    .unwrap();
+    let keyboard_config = serde_json::from_value::<KeyboardConfig<MyGameActions>>(
+        serde_json::json!({
+            "bindings": {
+                "KeyW": ["MoveUp"],
+                "KeyS": ["MoveDown"],
+                "KeyA": ["MoveLeft"],
+                "KeyD": ["MoveRight"],
+            }
+        }))
+        .unwrap();
 
     App::new()
         .add_plugins(DefaultPlugins)
@@ -65,18 +79,17 @@ fn setup(
 }
 
 fn set_rotation_state(
-    mut evr_gae: EventReader<GameActionEvent>,
+    mut evr_gae: EventReader<GameActionEvent<MyGameActions>>,
     mut query: Query<&mut RotationState>,
 ) {
     for ev in evr_gae.read() {
         let mut rotation_state = query.single_mut();
         if ev.event == ActionType::Begin {
-            match ev.action.as_str() {
-                "MoveUp" => *rotation_state = RotationState::Up,
-                "MoveDown" => *rotation_state = RotationState::Down,
-                "MoveLeft" => *rotation_state = RotationState::Left,
-                "MoveRight" => *rotation_state = RotationState::Right,
-                _ => {}
+            match ev.action {
+                MyGameActions::MoveUp => *rotation_state = RotationState::Up,
+                MyGameActions::MoveDown => *rotation_state = RotationState::Down,
+                MyGameActions::MoveLeft => *rotation_state = RotationState::Left,
+                MyGameActions::MoveRight => *rotation_state = RotationState::Right,
             }
         } else {
             *rotation_state = RotationState::None;
