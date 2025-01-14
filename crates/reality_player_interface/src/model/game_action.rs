@@ -5,7 +5,7 @@ use serde::{Deserialize, Serialize};
 /// must be serializable to string representation
 pub type GameAction = String;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub enum ActionType {
     Begin,
     End,

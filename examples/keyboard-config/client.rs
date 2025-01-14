@@ -1,10 +1,8 @@
-use std::ops::Deref;
-
 use reality_kit::bevy::prelude::*;
-use reality_player_interface::{GameActionEvent, KeyboardConfig, RealityInputPlugin};
+use reality_player_interface::{ActionType, GameActionEvent, RealityInputPlugin};
 
 fn main() {
-    let keyboard_config: KeyboardConfig = serde_json::from_value(serde_json::json!({
+    let keyboard_config = serde_json::from_value(serde_json::json!({
         "bindings": {
             "KeyW": ["MoveUp"],
             "KeyS": ["MoveDown"],
@@ -24,10 +22,11 @@ fn main() {
 
 #[derive(Component)]
 enum RotationState {
-    ClockwiseLeft,
-    ClockwiseRight,
-    CounterClockwiseLeft,
-    CounterClockwiseRight,
+    None,
+    Left,
+    Right,
+    Up,
+    Down,
 }
 
 fn setup(
@@ -41,7 +40,7 @@ fn setup(
             transform: Transform::from_xyz(5.0, 5.0, 5.0).looking_at(Vec3::ZERO, Vec3::Y),
             ..default()
         },
-        RotationState::ClockwiseLeft,
+        RotationState::None,
     ));
 
     // Light
@@ -71,12 +70,16 @@ fn set_rotation_state(
 ) {
     for ev in evr_gae.read() {
         let mut rotation_state = query.single_mut();
-        match ev.action.deref() {
-            "MoveUp" => *rotation_state = RotationState::ClockwiseLeft,
-            "MoveDown" => *rotation_state = RotationState::CounterClockwiseLeft,
-            "MoveLeft" => *rotation_state = RotationState::CounterClockwiseRight,
-            "MoveRight" => *rotation_state = RotationState::ClockwiseRight,
-            _ => {}
+        if ev.event == ActionType::Begin {
+            match ev.action.as_str() {
+                "MoveUp" => *rotation_state = RotationState::Up,
+                "MoveDown" => *rotation_state = RotationState::Down,
+                "MoveLeft" => *rotation_state = RotationState::Left,
+                "MoveRight" => *rotation_state = RotationState::Right,
+                _ => {}
+            }
+        } else {
+            *rotation_state = RotationState::None;
         }
     }
 }
@@ -86,27 +89,17 @@ fn rotate_camera(
     time: Res<Time>,
 ) {
     let (mut transform, rotation_state) = query.single_mut();
-    let rotation_speed = 0.5;
+    let rotation_speed = 1.0;
 
-    match rotation_state {
-        RotationState::ClockwiseLeft => {
-            let rotation = Quat::from_rotation_y(time.delta_seconds() * rotation_speed);
-            transform.rotate_around(Vec3::ZERO, rotation);
-        }
-        RotationState::ClockwiseRight => {
-            let rotation = Quat::from_rotation_y(-time.delta_seconds() * rotation_speed);
-            transform.rotate_around(Vec3::ZERO, rotation);
-        }
-        RotationState::CounterClockwiseLeft => {
-            let rotation = Quat::from_rotation_x(-time.delta_seconds() * rotation_speed);
-            transform.rotate_around(Vec3::ZERO, rotation);
-        }
-        RotationState::CounterClockwiseRight => {
-            let rotation = Quat::from_rotation_x(time.delta_seconds() * rotation_speed);
-            transform.rotate_around(Vec3::ZERO, rotation);
-        }
-    }
+    let rotation = match rotation_state {
+        RotationState::None => Quat::IDENTITY,
+        RotationState::Left => Quat::from_rotation_y(-rotation_speed * time.delta_seconds()),
+        RotationState::Right => Quat::from_rotation_y(rotation_speed * time.delta_seconds()),
+        RotationState::Up => Quat::from_rotation_x(rotation_speed * time.delta_seconds()),
+        RotationState::Down => Quat::from_rotation_x(-rotation_speed * time.delta_seconds()),
+    };
 
+    transform.rotate_around(Vec3::ZERO, rotation);
     // Keep the camera looking at the cube
     transform.look_at(Vec3::ZERO, Vec3::Y);
 }

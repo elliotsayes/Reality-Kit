@@ -3,7 +3,7 @@ mod model;
 mod system;
 mod plugin;
 
-pub use model::game_action::{GameAction, GameActionEvent};
+pub use model::game_action::{GameAction, GameActionEvent, ActionType};
 pub use model::keyboard::{Key, KeyboardConfig};
 pub use model::manifest::PlayerInterfaceManifest;
 
