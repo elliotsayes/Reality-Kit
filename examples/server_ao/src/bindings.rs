@@ -113,12 +113,12 @@ macro_rules! __export_ao_module_impl {
 #[doc(inline)]
 pub(crate) use __export_ao_module_impl as export;
 #[cfg(target_arch = "wasm32")]
-#[link_section = "component-type:wit-bindgen:0.36.0:component:ao-server:ao-module:encoded world"]
+#[link_section = "component-type:wit-bindgen:0.36.0:component:server-ao:ao-module:encoded world"]
 #[doc(hidden)]
 pub static __WIT_BINDGEN_COMPONENT_TYPE: [u8; 207] = *b"\
 \0asm\x0d\0\x01\0\0\x19\x16wit-component-encoding\x04\0\x07P\x01A\x02\x01A\x04\x01\
 @\0\x01\0\x04\0\x04init\x01\0\x01@\x02\x03msgs\x03envs\0s\x04\0\x06handle\x01\x01\
-\x04\0\x1dcomponent:ao-server/ao-module\x04\0\x0b\x0f\x01\0\x09ao-module\x03\0\0\
+\x04\0\x1dcomponent:server-ao/ao-module\x04\0\x0b\x0f\x01\0\x09ao-module\x03\0\0\
 \0G\x09producers\x01\x0cprocessed-by\x02\x0dwit-component\x070.220.0\x10wit-bind\
 gen-rust\x060.36.0";
 #[inline(never)]

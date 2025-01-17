@@ -20,7 +20,7 @@ strip = true
 lto = true
 
 [package.metadata.component]
-package = "component:ao-server"
+package = "component:server-ao"
 
 [package.metadata.component.dependencies]
 
