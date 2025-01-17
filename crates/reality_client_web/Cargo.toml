@@ -1,5 +1,5 @@
 [package]
-name = "reality_web_client"
+name = "reality_client_web"
 version = "0.1.0"
 edition = "2021"
 

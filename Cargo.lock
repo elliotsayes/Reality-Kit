@@ -3104,18 +3104,26 @@ dependencies = [
 ]
 
 [[package]]
-name = "reality_ao_client"
+name = "reality_client_ao"
 version = "0.1.0"
 dependencies = [
  "bevy",
 ]
 
 [[package]]
-name = "reality_ao_server"
+name = "reality_client_local"
 version = "0.1.0"
 dependencies = [
- "ao_module",
  "bevy",
+ "reality_player_interface",
+]
+
+[[package]]
+name = "reality_client_web"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "reality_player_interface",
 ]
 
 [[package]]
@@ -3131,22 +3139,14 @@ version = "0.1.0"
 dependencies = [
  "ao_module",
  "bevy",
- "reality_ao_client",
- "reality_ao_server",
+ "reality_client_ao",
+ "reality_client_local",
+ "reality_client_web",
  "reality_core",
- "reality_local_client",
  "reality_player_interface",
- "reality_web_client",
+ "reality_server_ao",
  "serde",
  "serde_json",
-]
-
-[[package]]
-name = "reality_local_client"
-version = "0.1.0"
-dependencies = [
- "bevy",
- "reality_player_interface",
 ]
 
 [[package]]
@@ -3159,11 +3159,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "reality_web_client"
+name = "reality_server_ao"
 version = "0.1.0"
 dependencies = [
+ "ao_module",
  "bevy",
- "reality_player_interface",
 ]
 
 [[package]]

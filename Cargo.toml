@@ -9,18 +9,18 @@ bevy = { workspace = true }
 ao_module = { path = "crates/ao_module", optional = true }
 reality_core = { path = "crates/reality_core" }
 reality_player_interface = { path = "crates/reality_player_interface", optional = true }
-reality_ao_server = { path = "crates/reality_ao_server", optional = true }
-reality_ao_client = { path = "crates/reality_ao_client", optional = true }
-reality_web_client = { path = "crates/reality_web_client", optional = true }
-reality_local_client = { path = "crates/reality_local_client", optional = true }
+reality_server_ao = { path = "crates/reality_server_ao", optional = true }
+reality_client_ao = { path = "crates/reality_client_ao", optional = true }
+reality_client_web = { path = "crates/reality_client_web", optional = true }
+reality_client_local = { path = "crates/reality_client_local", optional = true }
 serde.workspace = true
 serde_json.workspace = true
 
 [features]
-ao_server = ["ao_module", "reality_ao_server"]
-ao_client = ["ao_module", "reality_ao_client", "reality_player_interface"]
-web_client = ["reality_web_client", "reality_player_interface"]
-local_client = ["reality_local_client", "reality_player_interface"]
+server_ao = ["ao_module", "reality_server_ao"]
+client_ao = ["ao_module", "reality_client_ao", "reality_player_interface"]
+client_web = ["reality_client_web", "reality_player_interface"]
+client_local = ["reality_client_local", "reality_player_interface"]
 
 [workspace]
 resolver = "2"
@@ -35,7 +35,7 @@ exclude = [
 [[example]]
 name = "keyboard-config"
 path = "examples/keyboard-config.rs"
-required-features = ["local_client"]
+required-features = ["client_local"]
 
 [workspace.dependencies]
 bevy = { path = "../../Fork/bevy", default-features = false, features = [

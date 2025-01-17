@@ -10,4 +10,3 @@ pub struct Message {
     pub sender: ArweaveAddress,
     pub payload: Payload,
 }
-

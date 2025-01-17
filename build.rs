@@ -1,18 +1,18 @@
 fn main() {
     let mut single_features = vec![];
-    if cfg!(feature = "ao_server") {
-        single_features.push("ao_server");
+    if cfg!(feature = "server_ao") {
+        single_features.push("server_ao");
     }
-    if cfg!(feature = "ao_client") {
-        single_features.push("ao_client");
+    if cfg!(feature = "client_ao") {
+        single_features.push("client_ao");
     }
-    if cfg!(feature = "web_client") {
-        single_features.push("web_client");
+    if cfg!(feature = "client_web") {
+        single_features.push("client_web");
     }
-    if cfg!(feature = "local_client") {
-        single_features.push("local_client");
+    if cfg!(feature = "client_local") {
+        single_features.push("client_local");
     }
     if single_features.len() != 1 {
-        panic!("Exactly one of ao_server, ao_client, web_client, or local_client must be selected");
+        panic!("Exactly one of server_ao, client_ao, client_web, or client_local must be selected");
     }
 }

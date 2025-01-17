@@ -1,5 +1,5 @@
 [package]
-name = "reality_local_client"
+name = "reality_client_local"
 version = "0.1.0"
 edition = "2021"
 

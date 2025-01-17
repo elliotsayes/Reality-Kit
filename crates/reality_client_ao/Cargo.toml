@@ -1,5 +1,5 @@
 [package]
-name = "reality_ao_client"
+name = "reality_client_ao"
 version = "0.1.0"
 edition = "2021"
 
