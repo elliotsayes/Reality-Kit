@@ -1,0 +1,8 @@
+[package]
+name = "reality_ao_server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bevy = { workspace = true }
+ao_module = { path = "../ao_module" }

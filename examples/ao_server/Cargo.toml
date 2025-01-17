@@ -1,0 +1,29 @@
+[package]
+name = "ao_server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+wit-bindgen-rt = { version = "0.37.0", features = ["bitflags"] }
+reality_kit = { path = "../.." }
+reality_ao_server = { path = "../../crates/reality_ao_server" }
+ao_module = { path = "../../crates/ao_module" }
+
+[lib]
+crate-type = ["cdylib"]
+
+[profile.release]
+codegen-units = 1
+opt-level = "s"
+debug = false
+strip = true
+lto = true
+
+[package.metadata.component]
+package = "component:ao-server"
+
+[package.metadata.component.dependencies]
+
+[patch.crates-io]
+# https://github.com/elliotsayes/getrandom/tree/bevy-random-det
+getrandom = { git = "https://github.com/elliotsayes/getrandom", branch = "bevy-random-det-0.2.15", features = ["determinism"]}

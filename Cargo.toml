@@ -8,66 +8,83 @@ publish = false
 bevy = { workspace = true }
 reality_core = { path = "crates/reality_core" }
 reality_player_interface = { path = "crates/reality_player_interface" }
+reality_ao_server = { path = "crates/reality_ao_server" }
+ao_module = { path = "crates/ao_module" }
 serde.workspace = true
 serde_json.workspace = true
 
 [features]
-client = [
+local_client = [
+    "client",
     "bevy/bevy_render",
     "bevy/bevy_window",
     "bevy/bevy_winit",
 ]
+agent = [
+    "ao",
+    "client",
+]
+client = []
+server = []
+ao = []
 
 [workspace]
 resolver = "2"
-
 members = [
     "crates/*",
     # "examples/*"
 ]
+exclude = [
+    "examples/ao_server",
+]
 
 [[example]]
 name = "keyboard-config"
-path = "examples/keyboard-config/client.rs"
-required-features = ["client"]
+path = "examples/keyboard-config.rs"
+required-features = ["local"]
 
 [workspace.dependencies]
-bevy = { version = "0.15.0", default-features = false, features = [
-  # "android-game-activity",
-  # "android_shared_stdcxx",
-  "animation",
-  "bevy_asset",
-  # "bevy_audio",
-  "bevy_color",
-  "bevy_core_pipeline",
-  "bevy_gilrs",
-  "bevy_gizmos",
-  "bevy_gltf",
-  "bevy_mesh_picking_backend",
-  "bevy_pbr",
-  "bevy_picking",
-  # "bevy_render",
-  "bevy_scene",
-  "bevy_sprite",
-  "bevy_sprite_picking_backend",
-  "bevy_state",
-  "bevy_text",
-  "bevy_ui",
-  "bevy_ui_picking_backend",
-  # "bevy_window",
-  # "bevy_winit",
-  # "custom_cursor",
-  "default_font",
-  # "hdr",
-  # "multi_threaded",
-  "png",
-  "smaa_luts",
-  "sysinfo_plugin",
-  "tonemapping_luts",
-  # "vorbis",
-  # "webgl2",
-  "webgpu",
-  # "x11",
+bevy = { path = "../../Fork/bevy", default-features = false, features = [
+    "determinism",
+#   # "android-game-activity",
+#   # "android_shared_stdcxx",
+#   "animation",
+#   "bevy_asset",
+#   # "bevy_audio",
+#   "bevy_color",
+#   "bevy_core_pipeline",
+#   "bevy_gilrs",
+#   "bevy_gizmos",
+#   "bevy_gltf",
+#   "bevy_mesh_picking_backend",
+#   "bevy_pbr",
+#   "bevy_picking",
+#   # "bevy_render",
+#   "bevy_scene",
+#   "bevy_sprite",
+#   "bevy_sprite_picking_backend",
+#   "bevy_state",
+#   "bevy_text",
+#   "bevy_ui",
+#   "bevy_ui_picking_backend",
+#   # "bevy_window",
+#   # "bevy_winit",
+#   # "custom_cursor",
+#   "default_font",
+#   # "hdr",
+#   # "multi_threaded",
+#   "png",
+#   "smaa_luts",
+#   "sysinfo_plugin",
+#   "tonemapping_luts",
+#   # "vorbis",
+#   # "webgl2",
+#   "webgpu",
+#   # "x11",
 ]}
-serde = "1.0.217"
+serde = { version = "1.0.217", features = ["derive"] }
 serde_json = "1.0.135"
+
+[patch.crates-io]
+# https://github.com/elliotsayes/getrandom/tree/bevy-random-det
+getrandom = { git = "https://github.com/elliotsayes/getrandom", branch = "bevy-random-det-0.2.15", features = ["determinism"]}

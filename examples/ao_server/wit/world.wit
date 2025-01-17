@@ -1,0 +1,6 @@
+package component:ao-server;
+
+world ao-module {
+    export init: func();
+    export handle: func(msg: string, env: string) -> string;
+}
