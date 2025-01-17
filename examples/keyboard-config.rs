@@ -1,5 +1,5 @@
 use reality_kit::bevy::prelude::*;
-use reality_player_interface::{
+use reality_kit::player_interface::{
     ActionType, GameActionEvent, KeyboardConfig, PlayerInterfaceManifest, RealityInputPlugin,
 };
 use serde::{Deserialize, Serialize};
