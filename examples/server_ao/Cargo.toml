@@ -1,13 +1,13 @@
 [package]
-name = "ao_server"
+name = "server_ao"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
 wit-bindgen-rt = { version = "0.37.0", features = ["bitflags"] }
-reality_kit = { path = "../.." }
-reality_ao_server = { path = "../../crates/reality_ao_server" }
 ao_module = { path = "../../crates/ao_module" }
+reality_kit = { path = "../..", features = ["server_ao"] }
+reality_server_ao = { path = "../../crates/reality_server_ao" }
 
 [lib]
 crate-type = ["cdylib"]

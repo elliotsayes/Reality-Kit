@@ -29,7 +29,7 @@ members = [
     # "examples/*"
 ]
 exclude = [
-    "examples/ao_server",
+    "examples/server_ao",
 ]
 
 [[example]]

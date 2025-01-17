@@ -49,16 +49,6 @@ name = "ao_module"
 version = "0.1.0"
 
 [[package]]
-name = "ao_server"
-version = "0.1.0"
-dependencies = [
- "ao_module",
- "reality_ao_server",
- "reality_kit",
- "wit-bindgen-rt",
-]
-
-[[package]]
 name = "approx"
 version = "0.5.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1118,14 +1108,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "20675572f6f24e9e76ef639bc5552774ed45f1c30e2951e1e99c59888861c539"
 
 [[package]]
-name = "reality_ao_server"
-version = "0.1.0"
-dependencies = [
- "ao_module",
- "bevy",
-]
-
-[[package]]
 name = "reality_core"
 version = "0.1.0"
 dependencies = [
@@ -1136,10 +1118,20 @@ dependencies = [
 name = "reality_kit"
 version = "0.1.0"
 dependencies = [
+ "ao_module",
  "bevy",
  "reality_core",
+ "reality_server_ao",
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "reality_server_ao"
+version = "0.1.0"
+dependencies = [
+ "ao_module",
+ "bevy",
 ]
 
 [[package]]
@@ -1258,6 +1250,16 @@ dependencies = [
  "memchr",
  "ryu",
  "serde",
+]
+
+[[package]]
+name = "server_ao"
+version = "0.1.0"
+dependencies = [
+ "ao_module",
+ "reality_kit",
+ "reality_server_ao",
+ "wit-bindgen-rt",
 ]
 
 [[package]]

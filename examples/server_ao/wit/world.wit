@@ -1,4 +1,4 @@
-package component:ao-server;
+package component:server-ao;
 
 world ao-module {
     export init: func();
