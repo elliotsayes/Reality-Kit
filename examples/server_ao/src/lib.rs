@@ -4,7 +4,7 @@ mod game;
 
 use bindings::Guest;
 
-use reality_kit::server::server_create;
+use reality_kit::server;
 use ao_module::ArweaveTimestamp;
 
 struct Component;
@@ -12,13 +12,15 @@ struct Component;
 impl Guest for Component {
     fn init() {
         println!("{}", ArweaveTimestamp::MAX);
-        server_create(|app| {
+        server::server_create(|app| {
             game::build(app);
         }, false);
     }
 
     fn handle(msg: String, env: String) -> String {
-        todo!()
+        // TODO
+        server::server_tick(ArweaveTimestamp::MAX);
+        "{}".to_string()
     }
 }
 
