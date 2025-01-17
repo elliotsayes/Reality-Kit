@@ -7,7 +7,6 @@ edition = "2021"
 wit-bindgen-rt = { version = "0.37.0", features = ["bitflags"] }
 ao_module = { path = "../../crates/ao_module" }
 reality_kit = { path = "../..", features = ["server_ao"] }
-reality_server_ao = { path = "../../crates/reality_server_ao" }
 
 [lib]
 crate-type = ["cdylib"]

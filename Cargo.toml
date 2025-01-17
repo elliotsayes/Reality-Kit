@@ -26,10 +26,7 @@ client_local = ["reality_client_local", "reality_player_interface"]
 resolver = "2"
 members = [
     "crates/*",
-    # "examples/*"
-]
-exclude = [
-    "examples/server_ao",
+    "examples/*"
 ]
 
 [[example]]

@@ -4,7 +4,7 @@ mod game;
 
 use bindings::Guest;
 
-use reality_server_ao::server_create;
+use reality_kit::server::server_create;
 use ao_module::ArweaveTimestamp;
 
 struct Component;

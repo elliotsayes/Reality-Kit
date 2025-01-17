@@ -3375,6 +3375,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "server_ao"
+version = "0.1.0"
+dependencies = [
+ "ao_module",
+ "reality_kit",
+ "wit-bindgen-rt",
+]
+
+[[package]]
 name = "sharded-slab"
 version = "0.1.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4394,6 +4403,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c8d71a593cc5c42ad7876e2c1fda56f314f3754c084128833e64f1345ff8a03a"
 dependencies = [
  "memchr",
+]
+
+[[package]]
+name = "wit-bindgen-rt"
+version = "0.37.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fc801b991c56492f87ab3086e786468f75c285a4d73017ab0ebc2fa1aed5d82c"
+dependencies = [
+ "bitflags 2.8.0",
 ]
 
 [[package]]
