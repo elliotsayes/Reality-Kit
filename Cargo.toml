@@ -6,27 +6,19 @@ publish = false
 
 [dependencies]
 bevy = { workspace = true }
+ao_module = { path = "crates/ao_module", optional = true }
 reality_core = { path = "crates/reality_core" }
-reality_player_interface = { path = "crates/reality_player_interface" }
-reality_ao_server = { path = "crates/reality_ao_server" }
-ao_module = { path = "crates/ao_module" }
+reality_player_interface = { path = "crates/reality_player_interface", optional = true }
+reality_ao_server = { path = "crates/reality_ao_server", optional = true }
+reality_ao_client = { path = "crates/reality_ao_client", optional = true }
+reality_web_client = { path = "crates/reality_web_client", optional = true }
 serde.workspace = true
 serde_json.workspace = true
 
 [features]
-local_client = [
-    "client",
-    "bevy/bevy_render",
-    "bevy/bevy_window",
-    "bevy/bevy_winit",
-]
-agent = [
-    "ao",
-    "client",
-]
-client = []
-server = []
-ao = []
+ao_server = ["ao_module", "reality_ao_server"]
+ao_client = ["ao_module", "reality_ao_client", "reality_player_interface"]
+web_client = ["reality_web_client", "reality_player_interface"]
 
 [workspace]
 resolver = "2"
@@ -41,50 +33,50 @@ exclude = [
 [[example]]
 name = "keyboard-config"
 path = "examples/keyboard-config.rs"
-required-features = ["local"]
+required-features = ["web_client"]
 
 [workspace.dependencies]
 bevy = { path = "../../Fork/bevy", default-features = false, features = [
     "determinism",
-#   # "android-game-activity",
-#   # "android_shared_stdcxx",
-#   "animation",
-#   "bevy_asset",
-#   # "bevy_audio",
-#   "bevy_color",
-#   "bevy_core_pipeline",
-#   "bevy_gilrs",
-#   "bevy_gizmos",
-#   "bevy_gltf",
-#   "bevy_mesh_picking_backend",
-#   "bevy_pbr",
-#   "bevy_picking",
-#   # "bevy_render",
-#   "bevy_scene",
-#   "bevy_sprite",
-#   "bevy_sprite_picking_backend",
-#   "bevy_state",
-#   "bevy_text",
-#   "bevy_ui",
-#   "bevy_ui_picking_backend",
-#   # "bevy_window",
-#   # "bevy_winit",
-#   # "custom_cursor",
-#   "default_font",
-#   # "hdr",
-#   # "multi_threaded",
-#   "png",
-#   "smaa_luts",
-#   "sysinfo_plugin",
-#   "tonemapping_luts",
-#   # "vorbis",
-#   # "webgl2",
-#   "webgpu",
-#   # "x11",
+  # "android-game-activity",
+  # "android_shared_stdcxx",
+  "animation",
+  "bevy_asset",
+  # "bevy_audio",
+  "bevy_color",
+  "bevy_core_pipeline",
+  "bevy_gilrs",
+  "bevy_gizmos",
+  "bevy_gltf",
+  "bevy_mesh_picking_backend",
+  "bevy_pbr",
+  "bevy_picking",
+  # "bevy_render",
+  "bevy_scene",
+  "bevy_sprite",
+  "bevy_sprite_picking_backend",
+  "bevy_state",
+  "bevy_text",
+  "bevy_ui",
+  "bevy_ui_picking_backend",
+  # "bevy_window",
+  # "bevy_winit",
+  # "custom_cursor",
+  "default_font",
+  # "hdr",
+  # "multi_threaded",
+  "png",
+  "smaa_luts",
+  "sysinfo_plugin",
+  "tonemapping_luts",
+  # "vorbis",
+  # "webgl2",
+  "webgpu",
+  # "x11",
 ]}
 serde = { version = "1.0.217", features = ["derive"] }
 serde_json = "1.0.135"
 
 [patch.crates-io]
 # https://github.com/elliotsayes/getrandom/tree/bevy-random-det
-getrandom = { git = "https://github.com/elliotsayes/getrandom", branch = "bevy-random-det-0.2.15", features = ["determinism"]}
+getrandom = { git = "https://github.com/elliotsayes/getrandom", branch = "bevy-random-det-0.2.15" }

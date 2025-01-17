@@ -26,4 +26,4 @@ package = "component:ao-server"
 
 [patch.crates-io]
 # https://github.com/elliotsayes/getrandom/tree/bevy-random-det
-getrandom = { git = "https://github.com/elliotsayes/getrandom", branch = "bevy-random-det-0.2.15", features = ["determinism"]}
+getrandom = { git = "https://github.com/elliotsayes/getrandom", branch = "bevy-random-det-0.2.15" }

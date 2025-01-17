@@ -701,7 +701,7 @@ dependencies = [
 [[package]]
 name = "getrandom"
 version = "0.2.15"
-source = "git+https://github.com/elliotsayes/getrandom?branch=bevy-random-det-0.2.15#8240f328cfbe90beffff398dfbabb062397015f7"
+source = "git+https://github.com/elliotsayes/getrandom?branch=bevy-random-det-0.2.15#18c22fd48e20fe064a1597fd5e3f76eb2398af1a"
 dependencies = [
  "cfg-if",
  "libc",
@@ -1136,20 +1136,8 @@ dependencies = [
 name = "reality_kit"
 version = "0.1.0"
 dependencies = [
- "ao_module",
  "bevy",
- "reality_ao_server",
  "reality_core",
- "reality_player_interface",
- "serde",
- "serde_json",
-]
-
-[[package]]
-name = "reality_player_interface"
-version = "0.1.0"
-dependencies = [
- "bevy",
  "serde",
  "serde_json",
 ]
@@ -1512,9 +1500,9 @@ dependencies = [
 
 [[package]]
 name = "valuable"
-version = "0.1.0"
+version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "830b7e5d4d90034032940e4ace0d9a9a057e7a45cd94e6c007832e39edb82f6d"
+checksum = "ba73ea9cf16a25df0c8caa16c51acb937d5712a8429db78a3ee29d5dcacd3a65"
 
 [[package]]
 name = "variadics_please"
