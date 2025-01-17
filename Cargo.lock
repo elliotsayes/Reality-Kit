@@ -3134,10 +3134,19 @@ dependencies = [
  "reality_ao_client",
  "reality_ao_server",
  "reality_core",
+ "reality_local_client",
  "reality_player_interface",
  "reality_web_client",
  "serde",
  "serde_json",
+]
+
+[[package]]
+name = "reality_local_client"
+version = "0.1.0"
+dependencies = [
+ "bevy",
+ "reality_player_interface",
 ]
 
 [[package]]

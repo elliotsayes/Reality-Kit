@@ -1,0 +1,39 @@
+[package]
+name = "reality_local_client"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bevy = { workspace = true }
+reality_player_interface = { path = "../reality_player_interface" }
+
+[features]
+default = [
+    "bevy/bevy_render",
+    "bevy/bevy_window",
+    "bevy/bevy_winit",
+
+    "bevy/animation",
+    "bevy/bevy_asset",
+    "bevy/bevy_color",
+    "bevy/bevy_core_pipeline",
+    "bevy/bevy_gilrs",
+    "bevy/bevy_gizmos",
+    "bevy/bevy_gltf",
+    "bevy/bevy_mesh_picking_backend",
+    "bevy/bevy_pbr",
+    "bevy/bevy_picking",
+    "bevy/bevy_scene",
+    "bevy/bevy_sprite",
+    "bevy/bevy_sprite_picking_backend",
+    "bevy/bevy_state",
+    "bevy/bevy_text",
+    "bevy/bevy_ui",
+    "bevy/bevy_ui_picking_backend",
+    "bevy/default_font",
+    "bevy/png",
+    "bevy/smaa_luts",
+    "bevy/sysinfo_plugin",
+    "bevy/tonemapping_luts",
+    "bevy/webgpu",
+]
