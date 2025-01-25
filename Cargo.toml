@@ -35,7 +35,7 @@ path = "examples/keyboard-config.rs"
 required-features = ["client_local"]
 
 [workspace.dependencies]
-bevy = { path = "../../Fork/bevy", default-features = false, features = [
+bevy = { git = "https://github.com/elliotsayes/bevy", branch = "determinism-test", default-features = false, features = [
     "determinism",
 #   # "android-game-activity",
 #   # "android_shared_stdcxx",
