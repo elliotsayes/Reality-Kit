@@ -1,0 +1,15 @@
+[package]
+name = "reality_client_web"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bevy = { workspace = true }
+reality_player_interface = { path = "../reality_player_interface" }
+
+[features]
+default = [
+    "bevy/bevy_render",
+    "bevy/bevy_window",
+    "bevy/bevy_winit",
+]

@@ -1,0 +1,81 @@
+[package]
+name = "reality_kit"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+bevy = { workspace = true }
+ao_module = { path = "crates/ao_module", optional = true }
+reality_core = { path = "crates/reality_core" }
+reality_player_interface = { path = "crates/reality_player_interface", optional = true }
+reality_server_ao = { path = "crates/reality_server_ao", optional = true }
+reality_client_ao = { path = "crates/reality_client_ao", optional = true }
+reality_client_web = { path = "crates/reality_client_web", optional = true }
+reality_client_local = { path = "crates/reality_client_local", optional = true }
+serde.workspace = true
+serde_json.workspace = true
+
+[features]
+server_ao = ["ao_module", "reality_server_ao"]
+client_ao = ["ao_module", "reality_client_ao", "reality_player_interface"]
+client_web = ["reality_client_web", "reality_player_interface"]
+client_local = ["reality_client_local", "reality_player_interface"]
+
+[workspace]
+resolver = "2"
+members = [
+    "crates/*",
+    "examples/*"
+]
+
+[[example]]
+name = "keyboard-config"
+path = "examples/keyboard-config.rs"
+required-features = ["client_local"]
+
+[workspace.dependencies]
+bevy = { path = "../../Fork/bevy", default-features = false, features = [
+    "determinism",
+#   # "android-game-activity",
+#   # "android_shared_stdcxx",
+#   "animation",
+#   "bevy_asset",
+#   # "bevy_audio",
+#   "bevy_color",
+#   "bevy_core_pipeline",
+#   "bevy_gilrs",
+#   "bevy_gizmos",
+#   "bevy_gltf",
+#   "bevy_mesh_picking_backend",
+#   "bevy_pbr",
+#   "bevy_picking",
+#   # "bevy_render",
+#   "bevy_scene",
+#   "bevy_sprite",
+#   "bevy_sprite_picking_backend",
+#   "bevy_state",
+#   "bevy_text",
+#   "bevy_ui",
+#   "bevy_ui_picking_backend",
+#   # "bevy_window",
+#   # "bevy_winit",
+#   # "custom_cursor",
+#   "default_font",
+#   # "hdr",
+#   # "multi_threaded",
+#   "png",
+#   "smaa_luts",
+#   "sysinfo_plugin",
+#   "tonemapping_luts",
+#   # "vorbis",
+#   # "webgl2",
+#   "webgpu",
+#   # "x11",
+]}
+serde = { version = "1.0.217", features = ["derive"] }
+serde_json = "1.0.135"
+
+[patch.crates-io]
+# https://github.com/elliotsayes/getrandom/tree/bevy-random-det
+getrandom = { git = "https://github.com/elliotsayes/getrandom", branch = "bevy-random-det-0.2.15" }

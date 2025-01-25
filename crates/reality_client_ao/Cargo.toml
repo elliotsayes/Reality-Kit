@@ -1,0 +1,12 @@
+[package]
+name = "reality_client_ao"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+bevy = { workspace = true }
+
+[features]
+default = [
+    "bevy/bevy_render",
+]
