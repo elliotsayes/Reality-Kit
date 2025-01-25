@@ -6,7 +6,7 @@ use crate::model::game_action::GameActions;
 // Based on https://w3c.github.io/uievents-code/#code-value-tables
 // These come from winit
 #[derive(Debug, Clone, Hash, Eq, PartialEq, Serialize, Deserialize)]
-pub enum Key {
+pub enum KeyCode {
     Backquote,
     Backslash,
     BracketLeft,
@@ -185,16 +185,16 @@ pub enum Key {
 // It MUST be serializable to string
 #[derive(Debug, Clone, Serialize, Deserialize, Resource)]
 pub struct KeyboardConfig<GA> where GA: GameActions {
-    bindings: HashMap<Key, Vec<GA>>,
+    bindings: HashMap<KeyCode, Vec<GA>>,
 }
 
 impl<GA> KeyboardConfig<GA> where GA: GameActions {
-    pub fn new(bindings: HashMap<Key, Vec<GA>>) -> KeyboardConfig<GA> {
+    pub fn new(bindings: HashMap<KeyCode, Vec<GA>>) -> KeyboardConfig<GA> {
         KeyboardConfig { bindings }
     }
 
-    pub fn get_actions(&self, key: &Key) -> Option<&Vec<GA>> {
-        self.bindings.get(key)
+    pub fn get_actions(&self, key_code: &KeyCode) -> Option<&Vec<GA>> {
+        self.bindings.get(key_code)
     }
 }
 
@@ -212,7 +212,7 @@ pub enum KeyEvent {
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct KeyboardEvent {
-    key: Key,
+    key_code: KeyCode,
     event: KeyEvent,
 }
 

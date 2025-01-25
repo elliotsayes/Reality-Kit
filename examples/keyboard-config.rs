@@ -25,7 +25,6 @@ fn main() {
         version: 1,
         tick_rate: 60,
         actions_global: ALL_ACTIONS.to_vec(),
-        actions_current: None,
     };
 
     let keyboard_config =

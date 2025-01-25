@@ -9,5 +9,4 @@ pub struct PlayerInterfaceManifest<GA> where GA: GameActions
     pub version: u32,
     pub tick_rate: u32,
     pub actions_global: Vec<GA>,
-    pub actions_current: Option<Vec<GA>>,
 }
