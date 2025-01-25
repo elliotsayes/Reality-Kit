@@ -1,7 +1,8 @@
 use bevy::prelude::Resource;
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
-use crate::model::game_action::GameActions;
+
+use super::custom_types::GameAction;
 
 // Based on https://w3c.github.io/uievents-code/#code-value-tables
 // These come from winit
@@ -184,11 +185,11 @@ pub enum KeyCode {
 // GameAction is defined by the library user
 // It MUST be serializable to string
 #[derive(Debug, Clone, Serialize, Deserialize, Resource)]
-pub struct KeyboardConfig<GA> where GA: GameActions {
+pub struct KeyboardConfig<GA> where GA: GameAction {
     bindings: HashMap<KeyCode, Vec<GA>>,
 }
 
-impl<GA> KeyboardConfig<GA> where GA: GameActions {
+impl<GA> KeyboardConfig<GA> where GA: GameAction {
     pub fn new(bindings: HashMap<KeyCode, Vec<GA>>) -> KeyboardConfig<GA> {
         KeyboardConfig { bindings }
     }
@@ -197,12 +198,6 @@ impl<GA> KeyboardConfig<GA> where GA: GameActions {
         self.bindings.get(key_code)
     }
 }
-
-// #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
-// pub enum KeyState {
-//     Pressed,
-//     Released,
-// }
 
 #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 pub enum KeyEvent {
@@ -216,14 +211,22 @@ pub struct KeyboardEvent {
     event: KeyEvent,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct KeyboardEventTimed {
-    timestamp_delta: u64,
-    event: KeyboardEvent,
-}
+// The following are probably not going to be used
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct KeyboardTimeline {
-    timestamp_initial: u64,
-    events: Vec<KeyboardEventTimed>,
-}
+// #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
+// pub enum KeyState {
+//     Pressed,
+//     Released,
+// }
+
+// #[derive(Debug, Clone, Serialize, Deserialize)]
+// pub struct KeyboardEventTimed {
+//     timestamp_delta: u64,
+//     event: KeyboardEvent,
+// }
+
+// #[derive(Debug, Clone, Serialize, Deserialize)]
+// pub struct KeyboardTimeline {
+//     timestamp_initial: u64,
+//     events: Vec<KeyboardEventTimed>,
+// }

@@ -4,14 +4,14 @@ use bevy::input::keyboard::KeyboardInput;
 use bevy::input::ButtonState;
 use bevy::prelude::*;
 use crate::model::keyboard::{KeyCode as RKeyCode, KeyboardConfig};
-use crate::model::game_action::{ActionType, GameActionEvent};
-use crate::GameActions;
+use crate::model::custom_types::GameAction;
+use crate::model::player_update::{GameInputEvent, InputEventType};
 
 pub fn bevy_keycode_to_action<GA>(
     mut evr_kbd: EventReader<KeyboardInput>,
-    mut game_action_events: EventWriter<GameActionEvent<GA>>,
+    mut game_action_events: EventWriter<GameInputEvent<GA>>,
     config: Res<KeyboardConfig<GA>>,
-) where GA: GameActions {
+) where GA: GameAction {
     for ev in evr_kbd.read() {
         let Some(key) = bevy_keycode_to_keyboard_config_key(ev.key_code) else {
             continue;
@@ -20,8 +20,8 @@ pub fn bevy_keycode_to_action<GA>(
         if let Some(game_actions) = config.clone().get_actions(&key) {
             for game_action in game_actions {
                 let action_type = match ev.state {
-                    ButtonState::Pressed => ActionType::Begin,
-                    ButtonState::Released => ActionType::End,
+                    ButtonState::Pressed => InputEventType::Begin,
+                    ButtonState::Released => InputEventType::End,
                 };
 
                 debug!(
@@ -31,7 +31,7 @@ pub fn bevy_keycode_to_action<GA>(
                     game_action,
                     action_type
                 );
-                game_action_events.send(GameActionEvent::new(game_action.clone(), action_type));
+                game_action_events.send(GameInputEvent::new(game_action.clone(), action_type));
             }
         }
     }

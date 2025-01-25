@@ -1,8 +1,21 @@
 use reality_kit::bevy::prelude::*;
 use reality_kit::player_interface::{
-    ActionType, GameActionEvent, KeyboardConfig, PlayerInterfaceManifest, RealityInputPlugin,
+    GameInputEvent, InputEventType, EventDescriptor, ActionDescriptor, KeyboardConfig, PlayerInterfaceManifest, RealityInputPlugin,
 };
 use serde::{Deserialize, Serialize};
+
+#[derive(Debug, Clone, Serialize, Deserialize, Event)]
+enum MyGameEvents {
+    RotationStarted,
+    RotationEnded,
+}
+
+fn get_all_events() -> Vec<EventDescriptor<MyGameEvents>> {
+    vec![
+        EventDescriptor::new(MyGameEvents::RotationStarted).desc(String::from("Cube has started rotating.")),
+        EventDescriptor::new(MyGameEvents::RotationEnded).desc(String::from("Cube has stopped rotating.")),
+    ]
+}
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 enum MyGameActions {
@@ -12,19 +25,23 @@ enum MyGameActions {
     MoveRight,
 }
 
-const ALL_ACTIONS: [MyGameActions; 4] = [
-    MyGameActions::MoveUp,
-    MyGameActions::MoveDown,
-    MyGameActions::MoveLeft,
-    MyGameActions::MoveRight,
-];
+fn get_all_actions() -> Vec<ActionDescriptor<MyGameActions>> {
+    vec![
+        ActionDescriptor::new(MyGameActions::MoveUp).desc(String::from("Rotate the cube up")),
+        ActionDescriptor::new(MyGameActions::MoveDown).desc(String::from("Rotate the cube down")),
+        ActionDescriptor::new(MyGameActions::MoveLeft).desc(String::from("Rotate the cube left")),
+        ActionDescriptor::new(MyGameActions::MoveRight).desc(String::from("Rotate the cube right")),
+    ]
+}
 
 fn main() {
-    let manifest = PlayerInterfaceManifest::<MyGameActions> {
-        name: "Test".to_string(),
+    let manifest = PlayerInterfaceManifest::<MyGameEvents, MyGameActions> {
+        name: "Cube Rotator".to_string(),
         version: 1,
         tick_rate: 60,
-        actions_global: ALL_ACTIONS.to_vec(),
+        hint_text: Some("Rotate a cube for fun!".to_string()),
+        events_global: get_all_events(),
+        actions_global: get_all_actions(),
     };
 
     let keyboard_config =
@@ -44,8 +61,13 @@ fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
         .add_plugins(RealityInputPlugin { keyboard_config })
+        .add_event::<MyGameEvents>()
         .add_systems(Startup, setup)
-        .add_systems(Update, (set_rotation_state, rotate_camera))
+        .add_systems(Update, (
+            set_rotation_state,
+            rotate_camera,
+            print_game_events,
+        ))
         .run();
 }
 
@@ -94,20 +116,23 @@ fn setup(
 }
 
 fn set_rotation_state(
-    mut evr_gae: EventReader<GameActionEvent<MyGameActions>>,
+    mut evr_gie: EventReader<GameInputEvent<MyGameActions>>,
     mut query: Query<&mut RotationState>,
+    mut evw_gue: EventWriter<MyGameEvents>,
 ) {
-    for ev in evr_gae.read() {
+    for ev in evr_gie.read() {
         let mut rotation_state = query.single_mut();
-        if ev.event == ActionType::Begin {
+        if ev.event_type == InputEventType::Begin {
             match ev.action {
                 MyGameActions::MoveUp => *rotation_state = RotationState::Up,
                 MyGameActions::MoveDown => *rotation_state = RotationState::Down,
                 MyGameActions::MoveLeft => *rotation_state = RotationState::Left,
                 MyGameActions::MoveRight => *rotation_state = RotationState::Right,
             }
+            evw_gue.send(MyGameEvents::RotationStarted);
         } else {
             *rotation_state = RotationState::None;
+            evw_gue.send(MyGameEvents::RotationEnded);
         }
     }
 }
@@ -130,4 +155,10 @@ fn rotate_camera(
     transform.rotate_around(Vec3::ZERO, rotation);
     // Keep the camera looking at the cube
     transform.look_at(Vec3::ZERO, Vec3::Y);
+}
+
+fn print_game_events(mut evr_gie: EventReader<MyGameEvents>) {
+    for ev in evr_gie.read() {
+        println!("MyGameEvent: {ev:?}");
+    }
 }
