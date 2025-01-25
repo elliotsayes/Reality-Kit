@@ -116,8 +116,10 @@ fn setup(
 }
 
 fn set_rotation_state(
+    // Event added by `RealityInputPlugin`
     mut evr_gie: EventReader<GameInputEvent<MyGameActions>>,
     mut query: Query<&mut RotationState>,
+    // Event added manually (for now?)
     mut evw_gue: EventWriter<MyGameEvents>,
 ) {
     for ev in evr_gie.read() {
@@ -159,6 +161,7 @@ fn rotate_camera(
 
 fn print_game_events(mut evr_gie: EventReader<MyGameEvents>) {
     for ev in evr_gie.read() {
+        // These events should be sent from the client process to subscribing agent
         println!("MyGameEvent: {ev:?}");
     }
 }
