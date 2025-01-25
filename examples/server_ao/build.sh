@@ -30,5 +30,5 @@ echo -e "\033[0;32m--==============================--\033[0m"
 echo
 
 set -x
-wasm-tools component wit ./target/$TARGET/release/server_ao.wasm
-wasmtime ./target/$TARGET/release/server_ao.wasm
+wasm-tools component wit ../../target/$TARGET/release/server_ao.wasm
+wasmtime ../../target/$TARGET/release/server_ao.wasm
