@@ -110,7 +110,7 @@ fn setup(
     // Cube
     commands.spawn((
         Mesh3d(meshes.add(Cuboid::new(1.0, 1.0, 1.0))),
-        MeshMaterial3d(materials.add(Color::srgb(0.8, 0.7, 0.6))),
+        MeshMaterial3d(materials.add(Color::srgb(0.9, 0.2, 0.1))),
         Transform::from_xyz(0.0, 0.0, 0.0),
     ));
 }
