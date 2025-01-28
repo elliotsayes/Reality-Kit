@@ -10,24 +10,21 @@ use crate::reflect::{
 };
 use crate::userdata::{UserDataPtr, ValueExt};
 use bevy::ecs::component::ComponentId;
-use bevy::ecs::system::SystemBuffer;
 use bevy::ecs::world::CommandQueue;
 use bevy::prelude::*;
 use bevy::ptr::OwningPtr;
 use bevy::reflect::func::args::Ownership;
 use bevy::reflect::func::{
-    ArgList, ArgValue, DynamicFunction, FunctionError, FunctionInfo, FunctionRegistry, IntoReturn,
-    ReflectFn, Return, TypedFunction,
+    ArgList, DynamicFunction, FunctionRegistry, Return,
 };
-use bevy::reflect::{impl_reflect, ReflectFromPtr, Typed};
+use bevy::reflect::{ReflectFromPtr, Typed};
 use piccolo::{
-    Callback, CallbackReturn, Closure, Context, Executor, IntoValue, Lua, Table, TypeError,
+    Callback, CallbackReturn, Closure, Context, Executor, IntoValue, Lua, Table,
     UserData, Value, Variadic,
 };
 use send_wrapper::SendWrapper;
-use std::any::{Any, TypeId};
+use std::any::TypeId;
 use std::cell::RefCell;
-use std::collections::HashMap;
 use std::io::Cursor;
 use std::ops::DerefMut;
 use std::ptr::NonNull;
@@ -160,10 +157,10 @@ pub fn lua_wrapped_dynamic_function_call<'gc>(
                 stack.push_front(reflect_ptr.into_value(&context));
             }
             Return::Ref(_) => {
-                println!("todo return &");
+                warn!("todo return &");
             }
             Return::Mut(_) => {
-                println!("todo return &mut");
+                warn!("todo return &mut");
             }
         }
         Ok(CallbackReturn::Return)
@@ -512,7 +509,7 @@ pub fn run_every_tick(world: &mut World) {
                 })
                 .unwrap();
             if let Err(err) = lua.execute::<()>(&exec) {
-                println!("error running lua script didn't work: {err}");
+                warn!("error running lua script didn't work: {err}");
             }
             for ptr_state in ptr_states.iter() {
                 *ptr_state.borrow_mut() = PtrState::Invalid;
@@ -537,7 +534,7 @@ impl CommandQueueWrapper {
             let table = table.table.unwrap().take();
             for (_key, value) in table {
                 let Ok(value) = value.as_static_user_data::<ReflectPtr>() else {
-                    println!("passed non reflect to spawn function");
+                    warn!("passed non reflect to spawn function");
                     continue;
                 };
                 let type_id = unsafe { &*value.get_data() }
@@ -558,7 +555,7 @@ impl CommandQueueWrapper {
                         };
                     }
                     _ => {
-                        eprintln!("error non boxed component in spawn function");
+                        error!("non boxed component in spawn function");
                         continue;
                     }
                 }
