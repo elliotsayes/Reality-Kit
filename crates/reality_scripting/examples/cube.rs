@@ -18,15 +18,16 @@ fn main() {
     }))
     .add_plugins(LuaPlugin);
     app.register_type::<CubeMarker>();
-    app.register_object_function::<Vec3>(add.into_function().with_name("add"));
-    app.register_non_self_object_function::<Transform>(
-        default_uwu.into_function().with_name("default"),
-    );
     app.register_type::<Transform>();
     app.register_object_function::<Time<()>>(
         Time::<()>::elapsed_secs
             .into_function()
             .with_name("elapsed_secs"),
+    );
+    app.register_object_function::<Time<()>>(
+        Time::<()>::delta_secs
+            .into_function()
+            .with_name("delta_secs"),
     );
     app.add_systems(Startup, setup);
     app.run();
