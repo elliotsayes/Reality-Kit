@@ -1,5 +1,5 @@
 use piccolo::{
-    Callback, CallbackReturn, Context, FromValue, IntoValue, Table, TypeError, UserData, Value,
+    Callback, CallbackReturn, Context, FromValue, Table, TypeError, UserData, Value,
 };
 
 pub trait UserDataPtr: Sized + 'static

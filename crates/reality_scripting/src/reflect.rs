@@ -1,20 +1,17 @@
 use crate::userdata::{UserDataPtr, ValueExt};
-use crate::{lua_wrapped_dynamic_function_call, HashMapWrapper, LuaVm, TableReflectWrapper};
-use bevy::ecs::component::{ComponentDescriptor, ComponentId};
-use bevy::ecs::prelude::AppFunctionRegistry;
-use bevy::ecs::world::{CommandQueue, FilteredEntityMut};
+use crate::{lua_wrapped_dynamic_function_call, LuaVm};
+use bevy::ecs::component::ComponentId;
+use bevy::ecs::world::FilteredEntityMut;
 use bevy::prelude::*;
-use bevy::reflect::func::{ArgList, FunctionRegistry, Return};
+use bevy::reflect::func::FunctionRegistry;
 use piccolo::{
     Callback, CallbackReturn, Context, FromValue, Function, IntoValue, StashedFunction, Table,
-    TypeError, UserData, Value, Variadic,
+    TypeError, UserData, Value,
 };
-use send_wrapper::SendWrapper;
-use std::any::{Any, TypeId};
+use std::any::TypeId;
 use std::cell::RefCell;
 use std::collections::HashMap;
 use std::rc::Rc;
-use std::sync::Arc;
 
 #[derive(Copy, Clone, Debug)]
 pub enum ComponentType {
