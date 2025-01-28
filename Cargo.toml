@@ -9,6 +9,7 @@ bevy = { workspace = true }
 ao_module = { path = "crates/ao_module", optional = true }
 reality_core = { path = "crates/reality_core" }
 reality_player_interface = { path = "crates/reality_player_interface", optional = true }
+reality_scripting = { path = "crates/reality_scripting", optional = true }
 reality_server_ao = { path = "crates/reality_server_ao", optional = true }
 reality_client_ao = { path = "crates/reality_client_ao", optional = true }
 reality_client_web = { path = "crates/reality_client_web", optional = true }
@@ -17,6 +18,8 @@ serde.workspace = true
 serde_json.workspace = true
 
 [features]
+default = ["scripting"]
+scripting = ["reality_scripting"]
 server_ao = ["ao_module", "reality_server_ao"]
 client_ao = ["ao_module", "reality_client_ao", "reality_player_interface"]
 client_web = ["reality_client_web", "reality_player_interface"]
