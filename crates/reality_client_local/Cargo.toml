@@ -38,4 +38,5 @@ default = [
     "bevy/webgpu",
 
     "bevy/file_watcher",
+    "bevy/multi_threaded",
 ]

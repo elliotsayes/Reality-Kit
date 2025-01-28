@@ -10,9 +10,16 @@ flume = "0.11.1"
 send_wrapper = "0.6.0"
 anyhow = "1.0.92"
 
+[dev-dependencies]
+# Just used by examples. TODO: Do this porperly
+reality_client_local = { path = "../reality_client_local" }
+
+[[example]]
+name = "cube"
+path = "examples/cube.rs"
+
 [features]
 default = [
     "bevy/bevy_asset",
-    # "bevy/bevy_task",
     "bevy/reflect_functions"
 ]
