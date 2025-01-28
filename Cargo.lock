@@ -284,7 +284,7 @@ checksum = "72b3254f16251a8381aa12e40e3c4d2f0199f8c6508fbecb9d91f575e0fbb8c6"
 [[package]]
 name = "bevy"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_internal",
 ]
@@ -292,7 +292,7 @@ dependencies = [
 [[package]]
 name = "bevy_a11y"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "accesskit",
  "bevy_app",
@@ -305,14 +305,13 @@ dependencies = [
 [[package]]
 name = "bevy_animation"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_app",
  "bevy_asset",
  "bevy_color",
  "bevy_derive",
  "bevy_ecs",
- "bevy_hierarchy",
  "bevy_log",
  "bevy_math",
  "bevy_reflect",
@@ -337,24 +336,29 @@ dependencies = [
 [[package]]
 name = "bevy_app"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_derive",
  "bevy_ecs",
+ "bevy_platform_support",
  "bevy_reflect",
  "bevy_tasks",
  "bevy_utils",
+ "cfg-if",
+ "console_error_panic_hook",
  "ctrlc",
  "downcast-rs",
  "log",
  "thiserror 2.0.11",
  "variadics_please",
+ "wasm-bindgen",
+ "web-sys",
 ]
 
 [[package]]
 name = "bevy_asset"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "async-broadcast",
  "async-fs",
@@ -376,6 +380,7 @@ dependencies = [
  "either",
  "futures-io",
  "futures-lite 2.6.0",
+ "js-sys",
  "notify-debouncer-full",
  "parking_lot",
  "ron",
@@ -384,12 +389,15 @@ dependencies = [
  "thiserror 2.0.11",
  "tracing",
  "uuid",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
 ]
 
 [[package]]
 name = "bevy_asset_macros"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_macro_utils",
  "proc-macro2",
@@ -400,7 +408,7 @@ dependencies = [
 [[package]]
 name = "bevy_color"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_math",
  "bevy_reflect",
@@ -415,7 +423,7 @@ dependencies = [
 [[package]]
 name = "bevy_core_pipeline"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_app",
  "bevy_asset",
@@ -425,6 +433,7 @@ dependencies = [
  "bevy_ecs",
  "bevy_image",
  "bevy_math",
+ "bevy_platform_support",
  "bevy_reflect",
  "bevy_render",
  "bevy_transform",
@@ -442,7 +451,7 @@ dependencies = [
 [[package]]
 name = "bevy_derive"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_macro_utils",
  "quote",
@@ -452,10 +461,11 @@ dependencies = [
 [[package]]
 name = "bevy_diagnostic"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_app",
  "bevy_ecs",
+ "bevy_platform_support",
  "bevy_tasks",
  "bevy_time",
  "bevy_utils",
@@ -467,10 +477,11 @@ dependencies = [
 [[package]]
 name = "bevy_ecs"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "arrayvec",
  "bevy_ecs_macros",
+ "bevy_platform_support",
  "bevy_ptr",
  "bevy_reflect",
  "bevy_tasks",
@@ -494,7 +505,7 @@ dependencies = [
 [[package]]
 name = "bevy_ecs_macros"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_macro_utils",
  "proc-macro2",
@@ -505,7 +516,7 @@ dependencies = [
 [[package]]
 name = "bevy_encase_derive"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_macro_utils",
  "encase_derive_impl",
@@ -514,7 +525,7 @@ dependencies = [
 [[package]]
 name = "bevy_gilrs"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_app",
  "bevy_ecs",
@@ -529,7 +540,7 @@ dependencies = [
 [[package]]
 name = "bevy_gizmos"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_app",
  "bevy_asset",
@@ -553,7 +564,7 @@ dependencies = [
 [[package]]
 name = "bevy_gizmos_macros"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_macro_utils",
  "proc-macro2",
@@ -564,7 +575,7 @@ dependencies = [
 [[package]]
 name = "bevy_gltf"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "base64 0.22.1",
  "bevy_animation",
@@ -573,7 +584,6 @@ dependencies = [
  "bevy_color",
  "bevy_core_pipeline",
  "bevy_ecs",
- "bevy_hierarchy",
  "bevy_image",
  "bevy_math",
  "bevy_pbr",
@@ -593,23 +603,9 @@ dependencies = [
 ]
 
 [[package]]
-name = "bevy_hierarchy"
-version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
-dependencies = [
- "bevy_app",
- "bevy_ecs",
- "bevy_reflect",
- "bevy_utils",
- "disqualified",
- "log",
- "smallvec",
-]
-
-[[package]]
 name = "bevy_image"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_app",
  "bevy_asset",
@@ -635,7 +631,7 @@ dependencies = [
 [[package]]
 name = "bevy_input"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_app",
  "bevy_ecs",
@@ -651,23 +647,22 @@ dependencies = [
 [[package]]
 name = "bevy_input_focus"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_app",
  "bevy_ecs",
- "bevy_hierarchy",
  "bevy_input",
  "bevy_math",
  "bevy_reflect",
  "bevy_window",
+ "log",
  "thiserror 2.0.11",
- "tracing",
 ]
 
 [[package]]
 name = "bevy_internal"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_a11y",
  "bevy_animation",
@@ -681,7 +676,6 @@ dependencies = [
  "bevy_gilrs",
  "bevy_gizmos",
  "bevy_gltf",
- "bevy_hierarchy",
  "bevy_image",
  "bevy_input",
  "bevy_input_focus",
@@ -689,6 +683,7 @@ dependencies = [
  "bevy_math",
  "bevy_pbr",
  "bevy_picking",
+ "bevy_platform_support",
  "bevy_ptr",
  "bevy_reflect",
  "bevy_render",
@@ -708,7 +703,7 @@ dependencies = [
 [[package]]
 name = "bevy_log"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "android_log-sys",
  "bevy_app",
@@ -724,7 +719,7 @@ dependencies = [
 [[package]]
 name = "bevy_macro_utils"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -735,7 +730,7 @@ dependencies = [
 [[package]]
 name = "bevy_math"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "approx",
  "bevy_reflect",
@@ -753,7 +748,7 @@ dependencies = [
 [[package]]
 name = "bevy_mesh"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_asset",
  "bevy_derive",
@@ -776,7 +771,7 @@ dependencies = [
 [[package]]
 name = "bevy_mikktspace"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "glam",
 ]
@@ -784,7 +779,7 @@ dependencies = [
 [[package]]
 name = "bevy_pbr"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_app",
  "bevy_asset",
@@ -814,16 +809,16 @@ dependencies = [
 [[package]]
 name = "bevy_picking"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_app",
  "bevy_asset",
  "bevy_derive",
  "bevy_ecs",
- "bevy_hierarchy",
  "bevy_input",
  "bevy_math",
  "bevy_mesh",
+ "bevy_platform_support",
  "bevy_reflect",
  "bevy_render",
  "bevy_time",
@@ -836,16 +831,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "bevy_platform_support"
+version = "0.16.0-dev"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
+dependencies = [
+ "cfg-if",
+ "critical-section",
+ "getrandom",
+ "portable-atomic",
+ "portable-atomic-util",
+ "web-time",
+]
+
+[[package]]
 name = "bevy_ptr"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 
 [[package]]
 name = "bevy_reflect"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "assert_type_match",
+ "bevy_platform_support",
  "bevy_ptr",
  "bevy_reflect_derive",
  "bevy_utils",
@@ -868,7 +877,7 @@ dependencies = [
 [[package]]
 name = "bevy_reflect_derive"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_macro_utils",
  "proc-macro2",
@@ -880,7 +889,7 @@ dependencies = [
 [[package]]
 name = "bevy_render"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "async-channel",
  "bevy_app",
@@ -890,10 +899,10 @@ dependencies = [
  "bevy_diagnostic",
  "bevy_ecs",
  "bevy_encase_derive",
- "bevy_hierarchy",
  "bevy_image",
  "bevy_math",
  "bevy_mesh",
+ "bevy_platform_support",
  "bevy_reflect",
  "bevy_render_macros",
  "bevy_tasks",
@@ -928,7 +937,7 @@ dependencies = [
 [[package]]
 name = "bevy_render_macros"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_macro_utils",
  "proc-macro2",
@@ -939,13 +948,12 @@ dependencies = [
 [[package]]
 name = "bevy_scene"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_app",
  "bevy_asset",
  "bevy_derive",
  "bevy_ecs",
- "bevy_hierarchy",
  "bevy_reflect",
  "bevy_render",
  "bevy_transform",
@@ -959,7 +967,7 @@ dependencies = [
 [[package]]
 name = "bevy_sprite"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_app",
  "bevy_asset",
@@ -987,11 +995,10 @@ dependencies = [
 [[package]]
 name = "bevy_state"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_app",
  "bevy_ecs",
- "bevy_hierarchy",
  "bevy_reflect",
  "bevy_state_macros",
  "bevy_utils",
@@ -1002,7 +1009,7 @@ dependencies = [
 [[package]]
 name = "bevy_state_macros"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_macro_utils",
  "proc-macro2",
@@ -1013,28 +1020,33 @@ dependencies = [
 [[package]]
 name = "bevy_tasks"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
+ "async-channel",
  "async-executor",
  "async-task",
+ "bevy_platform_support",
+ "cfg-if",
+ "concurrent-queue",
  "derive_more",
  "edge-executor",
+ "futures-channel",
  "futures-lite 2.6.0",
- "portable-atomic-util",
+ "pin-project",
  "spin",
+ "wasm-bindgen-futures",
 ]
 
 [[package]]
 name = "bevy_text"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_app",
  "bevy_asset",
  "bevy_color",
  "bevy_derive",
  "bevy_ecs",
- "bevy_hierarchy",
  "bevy_image",
  "bevy_math",
  "bevy_reflect",
@@ -1055,24 +1067,24 @@ dependencies = [
 [[package]]
 name = "bevy_time"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_app",
  "bevy_ecs",
+ "bevy_platform_support",
  "bevy_reflect",
- "bevy_utils",
  "crossbeam-channel",
- "tracing",
+ "log",
+ "serde",
 ]
 
 [[package]]
 name = "bevy_transform"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "bevy_app",
  "bevy_ecs",
- "bevy_hierarchy",
  "bevy_math",
  "bevy_reflect",
  "derive_more",
@@ -1083,7 +1095,7 @@ dependencies = [
 [[package]]
 name = "bevy_ui"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "accesskit",
  "bevy_a11y",
@@ -1093,7 +1105,6 @@ dependencies = [
  "bevy_core_pipeline",
  "bevy_derive",
  "bevy_ecs",
- "bevy_hierarchy",
  "bevy_image",
  "bevy_input",
  "bevy_math",
@@ -1117,10 +1128,10 @@ dependencies = [
 [[package]]
 name = "bevy_utils"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
+ "bevy_platform_support",
  "foldhash",
- "getrandom",
  "hashbrown 0.15.2",
  "thread_local",
 ]
@@ -1128,7 +1139,7 @@ dependencies = [
 [[package]]
 name = "bevy_window"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "android-activity",
  "bevy_app",
@@ -1147,7 +1158,7 @@ dependencies = [
 [[package]]
 name = "bevy_winit"
 version = "0.16.0-dev"
-source = "git+https://github.com/elliotsayes/bevy?branch=determinism-test#65b2d311c8ba02b71793ff97ee0561fb05e65897"
+source = "git+https://github.com/bushrat011899/bevy?branch=Supportwasm32v1-none#57636027974b0071df2e826ffa5b54e04fcd5326"
 dependencies = [
  "accesskit",
  "accesskit_winit",
@@ -1156,11 +1167,11 @@ dependencies = [
  "bevy_app",
  "bevy_derive",
  "bevy_ecs",
- "bevy_hierarchy",
  "bevy_input",
  "bevy_input_focus",
  "bevy_log",
  "bevy_math",
+ "bevy_platform_support",
  "bevy_reflect",
  "bevy_tasks",
  "bevy_utils",
@@ -1423,6 +1434,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "console_error_panic_hook"
+version = "0.1.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a06aeb73f470f66dcdbf7223caeebb85984942f22f1adb2a088cf9668146bbbc"
+dependencies = [
+ "cfg-if",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "const-fnv1a-hash"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1536,6 +1557,12 @@ checksum = "a97769d94ddab943e4510d138150169a2758b5ef3eb191a9ee688de3e23ef7b3"
 dependencies = [
  "cfg-if",
 ]
+
+[[package]]
+name = "critical-section"
+version = "1.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "790eea4361631c5e7d22598ecd5723ff611904e3344ce8720784c93e3d83d40b"
 
 [[package]]
 name = "crossbeam-channel"
@@ -1935,6 +1962,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "76ee7a02da4d231650c7cea31349b889be2f45ddb3ef3032d2ec8185f6313fd2"
 dependencies = [
  "libc",
+]
+
+[[package]]
+name = "futures-channel"
+version = "0.3.31"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2dff15bf788c671c1934e366d07e30c1814a8ef514e1af724a602e8a2fbe1b10"
+dependencies = [
+ "futures-core",
 ]
 
 [[package]]
@@ -3426,6 +3462,7 @@ dependencies = [
  "bevy",
  "flume",
  "piccolo",
+ "reality_client_local",
  "send_wrapper",
 ]
 
