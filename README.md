@@ -1,7 +1,7 @@
 # Reality-Kit
 
 > [!IMPORTANT]
-> Under construction! Some dependencies may be unavailable.
+> Under construction!
 
 ## Requirements
 
