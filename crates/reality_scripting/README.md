@@ -1,6 +1,6 @@
 # reality_scripting
 
-Based on: <https://github.com/malekire/blua>
+Based on <https://github.com/malekire/blua>
 
 ## Status
 
@@ -18,7 +18,6 @@ cargo run --example cube
 - [x] Should compile to WebAssembly (`wasm32-unknown-unknown`)
   - This rules out packages that rely on [mlua](https://github.com/mlua-rs/mlua) like [bevy_mod_scripting](https://github.com/makspll/bevy_mod_scripting), as it only supports `wasm32-unknown-emscripten` (issues [1](https://github.com/mlua-rs/mlua/issues/23), [2](https://github.com/makspll/bevy_mod_scripting/issues/166))
 - [ ] Should have a heirarchy system, where scripts can be assigned into tiers
-- [ ] Should have a mode for full access to all APIs, types, functions etc
-- [ ] Should have a mode restricting access to a subset of (state-mutating) functionality
-  - The access restrictions should be controllable by *other scripts* in higher tiers.
-- [ ] Should have a (networked) script-to-script messaging API, with reliable information about the sender's id/tier
+- [ ] Should allow full access to all APIs, types, functions etc
+- [ ] Should allow restricting access to arbitrary (state-mutating) functionality, also controllable by scripts (i.e. in higher tiers.). This could work by validating the systems' query parameters (at registration time) and spawned entities (at execution time)
+- [ ] Should expose an ergonomic networking API, allowing communication between the client and server side

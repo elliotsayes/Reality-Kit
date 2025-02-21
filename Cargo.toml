@@ -10,6 +10,7 @@ ao_module = { path = "crates/ao_module", optional = true }
 reality_core = { path = "crates/reality_core" }
 reality_player_interface = { path = "crates/reality_player_interface", optional = true }
 reality_scripting = { path = "crates/reality_scripting", optional = true }
+reality_netcode = { path = "crates/reality_netcode", optional = true }
 reality_server_ao = { path = "crates/reality_server_ao", optional = true }
 reality_client_ao = { path = "crates/reality_client_ao", optional = true }
 reality_client_web = { path = "crates/reality_client_web", optional = true }
@@ -29,7 +30,7 @@ client_local = ["reality_client_local", "reality_player_interface"]
 resolver = "2"
 members = [
     "crates/*",
-    "examples/*"
+    # "examples/*"
 ]
 
 [[example]]

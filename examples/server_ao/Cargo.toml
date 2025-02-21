@@ -11,18 +11,7 @@ reality_kit = { path = "../..", features = ["server_ao"] }
 [lib]
 crate-type = ["cdylib"]
 
-[profile.release]
-codegen-units = 1
-opt-level = "s"
-debug = false
-strip = true
-lto = true
-
 [package.metadata.component]
 package = "component:server-ao"
 
 [package.metadata.component.dependencies]
-
-[patch.crates-io]
-# https://github.com/elliotsayes/getrandom/tree/bevy-random-det
-getrandom = { git = "https://github.com/elliotsayes/getrandom", branch = "bevy-random-det-0.2.15" }

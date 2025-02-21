@@ -1,7 +1,13 @@
+use std::hint;
+
+use reality_core::game_tick::RealityGameTick;
 use reality_kit::bevy::prelude::*;
+use reality_kit::core::game_tick::RealityGameTickPlugin;
 use reality_kit::player_interface::{
-    GameInputEvent, InputEventType, EventDescriptor, ActionDescriptor, KeyboardConfig, PlayerInterfaceManifest, RealityInputPlugin,
+    ActionDescriptor, EventDescriptor, GameInputEvent, InputEventType, KeyboardConfig,
+    PlayerInterfaceManifest, RealityInputPlugin,
 };
+use reality_player_interface::{GameUpdateEventTimed, PlayerInterfaceGameUpdate, UpdateInfo};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Event)]
@@ -12,8 +18,10 @@ enum MyGameEvents {
 
 fn get_all_events() -> Vec<EventDescriptor<MyGameEvents>> {
     vec![
-        EventDescriptor::new(MyGameEvents::RotationStarted).desc(String::from("Cube has started rotating.")),
-        EventDescriptor::new(MyGameEvents::RotationEnded).desc(String::from("Cube has stopped rotating.")),
+        EventDescriptor::new(MyGameEvents::RotationStarted)
+            .desc(String::from("Cube has started rotating.")),
+        EventDescriptor::new(MyGameEvents::RotationEnded)
+            .desc(String::from("Cube has stopped rotating.")),
     ]
 }
 
@@ -51,6 +59,10 @@ fn main() {
                 "KeyS": ["MoveDown"],
                 "KeyA": ["MoveLeft"],
                 "KeyD": ["MoveRight"],
+                "ArrowUp": ["MoveUp"],
+                "ArrowDown": ["MoveDown"],
+                "ArrowLeft": ["MoveLeft"],
+                "ArrowRight": ["MoveRight"],
             }
         }))
         .unwrap();
@@ -60,14 +72,14 @@ fn main() {
 
     App::new()
         .add_plugins(DefaultPlugins)
+        .add_plugins(RealityGameTickPlugin::default())
         .add_plugins(RealityInputPlugin { keyboard_config })
         .add_event::<MyGameEvents>()
         .add_systems(Startup, setup)
-        .add_systems(Update, (
-            set_rotation_state,
-            rotate_camera,
-            print_game_events,
-        ))
+        .add_systems(
+            Update,
+            (set_rotation_state, rotate_camera, print_player_updates),
+        )
         .run();
 }
 
@@ -100,7 +112,7 @@ fn setup(
     });
     commands.spawn((
         PointLight {
-            intensity: 1500.0,
+            intensity: 3000.0,
             shadows_enabled: true,
             ..default()
         },
@@ -109,7 +121,7 @@ fn setup(
 
     // Cube
     commands.spawn((
-        Mesh3d(meshes.add(Cuboid::new(1.0, 1.0, 1.0))),
+        Mesh3d(meshes.add(Cuboid::new(2.0, 2.0, 2.0))),
         MeshMaterial3d(materials.add(Color::srgb(0.9, 0.2, 0.1))),
         Transform::from_xyz(0.0, 0.0, 0.0),
     ));
@@ -159,9 +171,36 @@ fn rotate_camera(
     transform.look_at(Vec3::ZERO, Vec3::Y);
 }
 
-fn print_game_events(mut evr_gie: EventReader<MyGameEvents>) {
+fn print_player_updates(mut evr_gie: EventReader<MyGameEvents>, rgt: Res<RealityGameTick>) {
     for ev in evr_gie.read() {
+        // println!("MyGameEvent: {ev:?}");
+
+        let hint_text = match ev {
+            MyGameEvents::RotationStarted => Some("Cube is On-screen, rotating".to_string()),
+            MyGameEvents::RotationEnded => Some("Cube is On-screen, stationary".to_string()),
+        };
+
+        let update: PlayerInterfaceGameUpdate<MyGameEvents, MyGameActions> =
+            PlayerInterfaceGameUpdate {
+                tick_initial: rgt.tick,
+                updates: vec![GameUpdateEventTimed {
+                    tick_delta: 0,
+                    update: UpdateInfo::GameEvent(reality_player_interface::UpdateInfo::GameEvent(
+                        ev.clone(),
+                    )),
+                }],
+                actions_current: Some(
+                    get_all_actions()
+                        .into_iter()
+                        .map(|action_descriptor| action_descriptor.action)
+                        .collect(),
+                ),
+                hint_text,
+                state_text: None,
+                media_refs: None,
+            };
+
         // These events should be sent from the client process to subscribing agent
-        println!("MyGameEvent: {ev:?}");
+        println!("{update:#?}");
     }
 }

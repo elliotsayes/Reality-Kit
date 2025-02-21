@@ -9,12 +9,15 @@ pub enum UpdateInfo<GE> where GE: GameEvent {
     // For updates triggered by an event in the game
     // e.g. a chess move
     GameEvent(GE),
+    // For updates requested by the Player
+    // TODO: Add Reference ID?
+    Requested,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct GameUpdateEventTimed<GE> where GE: GameEvent {
-    tick_delta: u64,
-    update: UpdateInfo<GE>,
+    pub tick_delta: u64,
+    pub update: UpdateInfo<GE>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
